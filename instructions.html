@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>MemoList — инструкция</title>
+  <style>
+    :root {
+      --bg: #f8f9fc;
+      --card: #ffffff;
+      --text: #1a1c20;
+      --muted: #5c6370;
+      --accent: #3d5a80;
+      --border: #e2e6ee;
+      --code-bg: #eef1f6;
+    }
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --bg: #12141a;
+        --card: #1c1f27;
+        --text: #e8eaed;
+        --muted: #9aa3b2;
+        --accent: #8ab4f8;
+        --border: #2d3340;
+        --code-bg: #252a35;
+      }
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+      font-size: 16px;
+      line-height: 1.55;
+      color: var(--text);
+      background: var(--bg);
+    }
+    .wrap {
+      max-width: 42rem;
+      margin: 0 auto;
+      padding: 1.25rem 1rem 3rem;
+    }
+    header {
+      margin-bottom: 1.5rem;
+    }
+    h1 {
+      font-size: 1.5rem;
+      font-weight: 700;
+      margin: 0 0 0.25rem;
+      line-height: 1.25;
+    }
+    .version {
+      color: var(--muted);
+      font-size: 0.9rem;
+      margin: 0;
+    }
+    .lang-bar {
+      display: flex;
+      gap: 0.5rem;
+      margin-top: 1rem;
+    }
+    .lang-bar button {
+      font: inherit;
+      font-size: 0.875rem;
+      padding: 0.35rem 0.85rem;
+      border-radius: 999px;
+      border: 1px solid var(--border);
+      background: var(--card);
+      color: var(--text);
+      cursor: pointer;
+    }
+    .lang-bar button.active {
+      background: var(--accent);
+      color: #fff;
+      border-color: var(--accent);
+    }
+    @media (prefers-color-scheme: dark) {
+      .lang-bar button.active { color: #12141a; }
+    }
+    section {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 1rem 1.15rem;
+      margin-bottom: 0.85rem;
+    }
+    h2 {
+      font-size: 1.05rem;
+      font-weight: 650;
+      margin: 0 0 0.65rem;
+      color: var(--accent);
+    }
+    h3 {
+      font-size: 0.95rem;
+      font-weight: 600;
+      margin: 0.85rem 0 0.4rem;
+    }
+    p { margin: 0.5rem 0; }
+    ul, ol {
+      margin: 0.4rem 0 0.5rem;
+      padding-left: 1.35rem;
+    }
+    li { margin: 0.35rem 0; }
+    li::marker { color: var(--accent); }
+    .cheatsheet ol { padding-left: 1.5rem; }
+    .note {
+      color: var(--muted);
+      font-size: 0.92rem;
+    }
+    .share-list { list-style: upper-alpha; }
+    code {
+      font-size: 0.88em;
+      background: var(--code-bg);
+      padding: 0.1em 0.35em;
+      border-radius: 4px;
+    }
+    [data-lang] { display: none; }
+    [data-lang].visible { display: block; }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <h1 id="page-title">MemoList</h1>
+      <p class="version" id="page-version">3.13.2</p>
+      <div class="lang-bar" role="group" aria-label="Language">
+        <button type="button" id="btn-ru" data-set-lang="ru">Русский</button>
+        <button type="button" id="btn-en" data-set-lang="en">English</button>
+      </div>
+    </header>
+
+    <div data-lang="ru" id="content-ru">
+      <section class="cheatsheet">
+        <h2>Шпаргалка</h2>
+        <ol>
+          <li>Иконка списка слева — «Мои списки».</li>
+          <li>«+» внизу — новый пункт.</li>
+          <li>Чекбокс: [ ] → [~] → [✓] (если статусы включены).</li>
+          <li>Свайп вправо — удалить, влево — архив (только корневые пункты).</li>
+          <li>Панель списка: фильтр, сортировка, метла (сброс галочек), настройки.</li>
+        </ol>
+      </section>
+
+      <section>
+        <h2>Мои списки</h2>
+        <ul>
+          <li>Карточки списков; кольцо прогресса % скрыто, если в списке «Статусы = 0» (данные не стираются).</li>
+          <li>Свайп влево по списку — в архив; вправо — удаление с задержкой.</li>
+          <li>Секция «Архив» внизу — тап по всей строке сворачивает/разворачивает.</li>
+          <li>При первой установке добавляются примеры списков.</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>Пункты и статусы</h2>
+        <p>Меню → Действия → «Статусы»:</p>
+        <ul>
+          <li><strong>0</strong> — без чекбоксов и без индикатора прогресса.</li>
+          <li><strong>2</strong> — пусто / готово.</li>
+          <li><strong>3</strong> — пусто / в работе / готово (по умолчанию).</li>
+        </ul>
+        <p class="note">Чекбокс меняет состояние по кругу. У родителя с активными детьми чекбокс приглушён — статус считается по подпунктам.</p>
+      </section>
+
+      <section>
+        <h2>Фильтр и новый список</h2>
+        <ul>
+          <li>Воронка в панели списка — фильтр по #тегам, цветовым меткам и статусам.</li>
+          <li>При активном фильтре можно создать новый список только из видимых пунктов.</li>
+          <li>Сортировка сбрасывается при перемещении пунктов.</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>Сброс всех галочек (метла)</h2>
+        <ul>
+          <li>Иконка метлы слева от шестерёнки, если есть отмеченные пункты и фильтр выключен.</li>
+          <li>Сбрасывает все активные пункты всех уровней; подтверждение: «Будут сброшены все галочки».</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>Архив пунктов</h2>
+        <ul>
+          <li>В архив отправляется только корневой пункт; подпункты архивируются вместе с ним.</li>
+          <li>Свайп влево по подпункту для архива недоступен.</li>
+          <li>В архиве: свайп влево — восстановить, вправо — удалить.</li>
+          <li>Тап по строке «Архив» — свернуть/развернуть (в списке и на экране «Мои списки»).</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>Подпункты</h2>
+        <ul>
+          <li>«Подпункт» в редактировании; сворачивание группы стрелкой.</li>
+          <li>Глубина — в меню списка или в общих настройках.</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>Метки и теги</h2>
+        <h3>Цветовые метки (1…N)</h3>
+        <p>Действия → «Корзины»; назначение в редактировании пункта.</p>
+        <h3>#Теги</h3>
+        <p>В тексте или Действия → «Теги». Переименование меняет имя и цвет в словаре и в пунктах.</p>
+      </section>
+
+      <section>
+        <h2>Вставка списка из текста</h2>
+        <ul>
+          <li>«Новый список» → «Развернуть для вставки списка».</li>
+          <li>Первая строка — название, далее пункты; отступы — подпункты.</li>
+          <li>Номера: «1. Текст», «9.1 Текст» (точка после подномера необязательна).</li>
+          <li>Пропуски в нумерации выравниваются по порядку строк.</li>
+          <li>«Поделиться» текстом из другого приложения открывает диалог создания списка.</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>Шаблоны</h2>
+        <ul>
+          <li>Действия → «Сохранить как шаблон» / «Добавить из шаблона».</li>
+          <li>Шаблоны в меню «Шаблоны»; в шаблоне нет чекбоксов и архива пунктов.</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>Обмен списком</h2>
+        <ol class="share-list">
+          <li>Самолётик в шапке — обычный нумерованный текст (без архивных пунктов).</li>
+          <li>Действия → «Поделиться в MemoList» — внутренний формат для импорта.</li>
+          <li>Действия → «Выгрузить файл <code>.memolist</code>».</li>
+        </ol>
+      </section>
+
+      <section>
+        <h2>Меню приложения</h2>
+        <p>Тема, плотность, глубина подпунктов, шаблоны, инструкция, облачная копия.</p>
+      </section>
+
+      <section>
+        <h2>Облачная копия</h2>
+        <p>Файл <code>Documents/MemoList/memolist-backup.json</code> — сохранение, отправка и восстановление данных.</p>
+      </section>
+    </div>
+
+    <div data-lang="en" id="content-en">
+      <section class="cheatsheet">
+        <h2>Quick cheatsheet</h2>
+        <ol>
+          <li>List icon (top left) — My lists.</li>
+          <li>“+” at bottom — new item.</li>
+          <li>Checkbox: [ ] → [~] → [✓] (when statuses are enabled).</li>
+          <li>Swipe right — delete, left — archive (root items only).</li>
+          <li>List toolbar: filter, sort, broom (reset checkmarks), settings.</li>
+        </ol>
+      </section>
+
+      <section>
+        <h2>My lists</h2>
+        <ul>
+          <li>List cards; progress ring is hidden when “Statuses = 0” (data is kept).</li>
+          <li>Swipe left on a list — archive; right — delayed delete.</li>
+          <li>“Archive” section at the bottom — tap the row to expand/collapse.</li>
+          <li>Sample lists are added on first install.</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>Items and statuses</h2>
+        <p>Menu → Actions → “Statuses”:</p>
+        <ul>
+          <li><strong>0</strong> — no checkboxes and no progress indicator.</li>
+          <li><strong>2</strong> — empty / done.</li>
+          <li><strong>3</strong> — empty / in progress / done (default).</li>
+        </ul>
+        <p class="note">Checkbox cycles states. A parent with active children has a dimmed checkbox — status is derived from children.</p>
+      </section>
+
+      <section>
+        <h2>Filter and new list</h2>
+        <ul>
+          <li>Funnel in the list toolbar — filter by #tags, color marks, and statuses.</li>
+          <li>With an active filter you can create a new list from visible items only.</li>
+          <li>Sort is cleared when you move items.</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>Reset all checkmarks (broom)</h2>
+        <ul>
+          <li>Broom icon left of the gear when any item is marked and the filter is off.</li>
+          <li>Resets all active items at every level; confirm: “All checkmarks will be cleared.”</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>Item archive</h2>
+        <ul>
+          <li>Only root items can be archived; sub-items go with the parent.</li>
+          <li>Swipe-to-archive is disabled for sub-items.</li>
+          <li>In archive: swipe left — restore, right — delete.</li>
+          <li>Tap the “Archive” row to expand/collapse (in a list and on My lists).</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>Sub-items</h2>
+        <ul>
+          <li>“Sub-item” in edit dialog; collapse groups with the arrow.</li>
+          <li>Depth — per list in Actions or global in Help menu.</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>Marks and tags</h2>
+        <h3>Color marks (1…N)</h3>
+        <p>Actions → “Bins”; assign in item edit.</p>
+        <h3>#Tags</h3>
+        <p>In text or Actions → “Tags”. Rename updates name and color in the vocabulary and in items.</p>
+      </section>
+
+      <section>
+        <h2>Paste list from text</h2>
+        <ul>
+          <li>“New list” → “Expand to paste list”.</li>
+          <li>First line — title, then items; indent — sub-items.</li>
+          <li>Numbers: “1. Text”, “9.1 Text” (trailing dot after sub-number is optional).</li>
+          <li>Gaps in numbering are normalized to document order.</li>
+          <li>Share text from another app opens the new-list dialog.</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>Templates</h2>
+        <ul>
+          <li>Actions → “Save as template” / “Add from template”.</li>
+          <li>Templates in Help → Templates; no checkboxes or item archive in templates.</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>Sharing</h2>
+        <ol class="share-list">
+          <li>Paper plane in the top bar — plain numbered text (no archived items).</li>
+          <li>Actions → “Share in MemoList” — internal format for import.</li>
+          <li>Actions → “Export <code>.memolist</code> file”.</li>
+        </ol>
+      </section>
+
+      <section>
+        <h2>Help menu</h2>
+        <p>Theme, density, sub-item depth, templates, instructions, cloud backup.</p>
+      </section>
+
+      <section>
+        <h2>Cloud backup</h2>
+        <p>File <code>Documents/MemoList/memolist-backup.json</code> — save, share, and restore data.</p>
+      </section>
+    </div>
+  </div>
+
+  <script>
+    (function () {
+      var titles = { ru: 'MemoList — инструкция', en: 'MemoList guide' };
+      var versions = { ru: 'Версия 3.13.2', en: 'Version 3.13.2' };
+
+      function resolveLang() {
+        var params = new URLSearchParams(window.location.search);
+        var q = params.get('lang');
+        if (q === 'ru' || q === 'en') return q;
+        var nav = (navigator.language || 'en').toLowerCase();
+        return nav.startsWith('ru') ? 'ru' : 'en';
+      }
+
+      function setLang(lang) {
+        document.documentElement.lang = lang;
+        document.getElementById('page-title').textContent = titles[lang];
+        document.getElementById('page-version').textContent = versions[lang];
+        document.querySelectorAll('[data-lang]').forEach(function (el) {
+          el.classList.toggle('visible', el.getAttribute('data-lang') === lang);
+        });
+        document.getElementById('btn-ru').classList.toggle('active', lang === 'ru');
+        document.getElementById('btn-en').classList.toggle('active', lang === 'en');
+        document.title = titles[lang];
+      }
+
+      document.querySelectorAll('[data-set-lang]').forEach(function (btn) {
+        btn.addEventListener('click', function () {
+          setLang(btn.getAttribute('data-set-lang'));
+        });
+      });
+
+      setLang(resolveLang());
+    })();
+  </script>
+</body>
+</html>
