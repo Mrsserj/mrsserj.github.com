@@ -4,6 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>MemoList — инструкция</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
   <style>
     :root {
       --bg: #f8f9fc;
@@ -39,9 +40,7 @@
       margin: 0 auto;
       padding: 1.25rem 1rem 3rem;
     }
-    header {
-      margin-bottom: 1.5rem;
-    }
+    header { margin-bottom: 1.5rem; }
     h1 {
       font-size: 1.5rem;
       font-weight: 700;
@@ -115,13 +114,77 @@
     }
     [data-lang] { display: none; }
     [data-lang].visible { display: block; }
+    .mi {
+      font-family: 'Material Symbols Outlined';
+      font-weight: normal;
+      font-style: normal;
+      font-size: 22px;
+      line-height: 1;
+      letter-spacing: normal;
+      display: inline-block;
+      vertical-align: middle;
+      color: var(--accent);
+      font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+    }
+    .svg-icon {
+      width: 22px;
+      height: 22px;
+      color: var(--accent);
+      vertical-align: middle;
+      display: inline-block;
+    }
+    .icon-list {
+      list-style: none;
+      padding-left: 0;
+      margin: 0.5rem 0;
+    }
+    .icon-list li {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.65rem;
+      margin: 0.45rem 0;
+    }
+    .icon-list .icon-cell {
+      flex: 0 0 28px;
+      text-align: center;
+      line-height: 1.35;
+      padding-top: 0.05rem;
+    }
+    .toolbar-strip {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 0.5rem 1rem;
+      margin: 0.65rem 0 0.85rem;
+      padding: 0.55rem 0.65rem;
+      border-radius: 8px;
+      background: var(--code-bg);
+    }
+    .toolbar-item {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      font-size: 0.92rem;
+      color: var(--muted);
+    }
+    .toolbar-item .mi { font-size: 24px; }
+    .mi-inline {
+      font-size: 1.15em;
+      vertical-align: -0.22em;
+      margin: 0 0.06em;
+    }
+    .mi-inline.img-icon {
+      width: 1.15em;
+      height: 1.15em;
+      font-size: inherit;
+    }
   </style>
 </head>
 <body>
   <div class="wrap">
     <header>
       <h1 id="page-title">MemoList</h1>
-      <p class="version" id="page-version">3.13.2</p>
+      <p class="version" id="page-version">3.16.6</p>
       <div class="lang-bar" role="group" aria-label="Language">
         <button type="button" id="btn-ru" data-set-lang="ru">Русский</button>
         <button type="button" id="btn-en" data-set-lang="en">English</button>
@@ -132,114 +195,332 @@
       <section class="cheatsheet">
         <h2>Шпаргалка</h2>
         <ol>
-          <li>Иконка списка слева — «Мои списки».</li>
-          <li>«+» внизу — новый пункт.</li>
-          <li>Чекбокс: [ ] → [~] → [✓] (если статусы включены).</li>
-          <li>Свайп вправо — удалить, влево — архив (только корневые пункты).</li>
-          <li>Панель списка: фильтр, сортировка, метла (сброс галочек), настройки.</li>
+          <li><span class="mi mi-inline" aria-hidden="true">arrow_back</span> слева на экране списка — «Мои списки».</li>
+          <li><span class="mi mi-inline" aria-hidden="true">add</span> внизу — новый пункт; при вводе могут появляться подсказки из словаря.</li>
+          <li>Чекбокс: <span class="mi mi-inline" aria-hidden="true">check_box_outline_blank</span> → в работе → <span class="mi mi-inline" aria-hidden="true">check_box</span> (если статусы включены).</li>
+          <li>Свайп влево — <span class="mi mi-inline" aria-hidden="true">archive</span> архив (только корневые). Свайп вправо — <span class="mi mi-inline" aria-hidden="true">delete</span> удаление: обычный режим — ~5 с ожидания; двойной — два свайпа вправо.</li>
+          <li>Панель: <span class="mi mi-inline" aria-hidden="true">filter_alt</span> фильтр, <span class="mi mi-inline" aria-hidden="true">sort</span> сортировка, <span class="mi mi-inline" aria-hidden="true">cleaning_services</span> метла, <span class="mi mi-inline" aria-hidden="true">settings</span> настройки.</li>
+          <li><span class="mi mi-inline" aria-hidden="true">more_vert</span> или <span class="mi mi-inline" aria-hidden="true">settings</span> — «Помощь»; на экране списка — «Действия».</li>
         </ol>
       </section>
 
       <section>
         <h2>Мои списки</h2>
         <ul>
-          <li>Карточки списков; кольцо прогресса % скрыто, если в списке «Статусы = 0» (данные не стираются).</li>
-          <li>Свайп влево по списку — в архив; вправо — удаление с задержкой.</li>
-          <li>Секция «Архив» внизу — тап по всей строке сворачивает/разворачивает.</li>
+          <li>Карточки списков; кольцо прогресса % скрыто, если «Статусы = 0» (отметки не стираются).</li>
+          <li>Свайп влево — <span class="mi mi-inline" aria-hidden="true">archive</span> в архив; вправо — <span class="mi mi-inline" aria-hidden="true">delete</span> удаление (~5 с), влево отменяет.</li>
+          <li>Секция «Архив» внизу — тап сворачивает/разворачивает (<span class="mi mi-inline" aria-hidden="true">keyboard_arrow_down</span> / <span class="mi mi-inline" aria-hidden="true">keyboard_arrow_up</span>).</li>
           <li>При первой установке добавляются примеры списков.</li>
         </ul>
       </section>
 
       <section>
-        <h2>Пункты и статусы</h2>
-        <p>Меню → Действия → «Статусы»:</p>
+        <h2>Новый список</h2>
+        <p>Кнопка «Новый» на экране «Мои списки» или в меню. Можно сразу ввести только название или развернуть дополнительные блоки.</p>
+        <h3>Вставка из текста</h3>
         <ul>
-          <li><strong>0</strong> — без чекбоксов и без индикатора прогресса.</li>
-          <li><strong>2</strong> — пусто / готово.</li>
-          <li><strong>3</strong> — пусто / в работе / готово (по умолчанию).</li>
+          <li><img class="svg-icon mi-inline img-icon" src="icons/ic_expand_input.svg" alt="" width="20" height="20"> «Развернуть для вставки списка» — первая строка название, далее пункты; отступы задают подпункты.</li>
+          <li>Номера «1. Текст», «9.1 Текст» (точка после подномера необязательна); пропуски в нумерации выравниваются.</li>
+          <li><span class="mi mi-inline" aria-hidden="true">share</span> «Поделиться» текстом из другого приложения открывает этот же диалог.</li>
         </ul>
-        <p class="note">Чекбокс меняет состояние по кругу. У родителя с активными детьми чекбокс приглушён — статус считается по подпунктам.</p>
+        <h3>Параметры</h3>
+        <p><span class="mi mi-inline" aria-hidden="true">expand_more</span> Раздел «Параметры» задаёт поведение <em>создаваемого</em> списка:</p>
+        <ul>
+          <li><span class="mi mi-inline" aria-hidden="true">account_tree</span> <strong>Глубина подпунктов</strong> — уровни вложенности (0 — без подпунктов); <span class="mi mi-inline" aria-hidden="true">remove</span> / <span class="mi mi-inline" aria-hidden="true">add</span>.</li>
+          <li><span class="mi mi-inline" aria-hidden="true">checklist</span> <strong>Статусы</strong> — 0 (без чекбоксов), 2 (пусто/готово), 3 (пусто/в работе/готово).</li>
+          <li><span class="mi mi-inline" aria-hidden="true">palette</span> <strong>Корзины</strong> — число цветовых меток (1…N) в редактировании пункта.</li>
+          <li><span class="mi mi-inline" aria-hidden="true">swipe_right</span> <strong>Двойной свайп для удаления</strong> — см. раздел ниже.</li>
+          <li><strong>Для всех новых</strong> — умолчания для следующих новых списков (существующие не меняются).</li>
+        </ul>
       </section>
 
       <section>
-        <h2>Фильтр и новый список</h2>
+        <h2>Пункты и статусы</h2>
+        <p>Меню → Действия → <span class="mi mi-inline" aria-hidden="true">checklist</span> «Статусы» (или в «Параметрах» нового списка):</p>
         <ul>
-          <li>Воронка в панели списка — фильтр по #тегам, цветовым меткам и статусам.</li>
-          <li>При активном фильтре можно создать новый список только из видимых пунктов.</li>
-          <li>Сортировка сбрасывается при перемещении пунктов.</li>
+          <li><strong>0</strong> — без <span class="mi mi-inline" aria-hidden="true">check_box</span> и без индикатора прогресса.</li>
+          <li><strong>2</strong> — <span class="mi mi-inline" aria-hidden="true">check_box_outline_blank</span> / <span class="mi mi-inline" aria-hidden="true">check_box</span>.</li>
+          <li><strong>3</strong> — пусто / в работе / готово (по умолчанию).</li>
         </ul>
+        <p class="note">Чекбокс меняет состояние по кругу. У родителя с активными детьми чекбокс приглушён. При «готово» родитель с детьми может свернуться (<span class="mi mi-inline" aria-hidden="true">keyboard_arrow_up</span>).</p>
+      </section>
+
+      <section>
+        <h2>Фильтр</h2>
+        <ul>
+          <li><span class="mi mi-inline" aria-hidden="true">filter_alt</span> Воронка в панели списка — фильтр по <span class="mi mi-inline" aria-hidden="true">sell</span> #тегам, <span class="mi mi-inline" aria-hidden="true">palette</span> меткам и статусам.</li>
+          <li>Можно выбрать несколько условий; видны только подходящие пункты.</li>
+          <li>При активном фильтре — <span class="mi mi-inline" aria-hidden="true">note_add</span> «Создать список из фильтра».</li>
+          <li>С фильтром при добавлении дубликат по названию не создаётся — теги дописываются к существующей строке.</li>
+          <li><span class="mi mi-inline" aria-hidden="true">sort</span> Сортировка сбрасывается при ручном перемещении пунктов.</li>
+          <li>При повороте экрана фильтр сохраняется.</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>Подсказки при вводе</h2>
+        <p>«Помощь» → <span class="mi mi-inline" aria-hidden="true">tips_and_updates</span> «Использовать подсказки при вводе» — общий переключатель.</p>
+        <ul>
+          <li>При первом включении словарь наполняется автоматически; сообщение «Словарь подсказок обновлён».</li>
+          <li>При <span class="mi mi-inline" aria-hidden="true">add</span> добавлении пункта появляются подсказки; выбор подставляет название.</li>
+          <li>Словарь общий; только названия — без #тегов и меток.</li>
+          <li>Частота растёт при отметке <span class="mi mi-inline" aria-hidden="true">check_box</span> «готово».</li>
+          <li>С <span class="mi mi-inline" aria-hidden="true">filter_alt</span> фильтром подсказки из списка и словаря.</li>
+          <li>При совпадении названия — предупреждение о дубликате.</li>
+          <li>В <span class="mi mi-inline" aria-hidden="true">edit</span> редактировании подсказки не показываются.</li>
+          <li>При выключении словарь очищается.</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>Удаление свайпом</h2>
+        <h3>Обычный режим (по умолчанию)</h3>
+        <ul>
+          <li>Свайп вправо — <span class="mi mi-inline" aria-hidden="true">delete</span> красное зачёркивание; через ~5 с удаление.</li>
+          <li>Свайп влево — <span class="mi mi-inline" aria-hidden="true">restore</span> отмена до истечения времени.</li>
+        </ul>
+        <h3>Двойной свайп</h3>
+        <p>Включается в Действия → <span class="mi mi-inline" aria-hidden="true">swipe_right</span> «Двойной свайп для удаления» или в «Параметрах» нового списка.</p>
+        <ul>
+          <li>Первый свайп вправо — серая пометка (<span class="mi mi-inline" aria-hidden="true">delete</span>).</li>
+          <li>Второй свайп вправо — удаление сразу.</li>
+          <li>Пока помечен — нельзя <span class="mi mi-inline" aria-hidden="true">edit</span> редактировать и менять <span class="mi mi-inline" aria-hidden="true">check_box</span> статус.</li>
+          <li>Свайп влево снимает пометку.</li>
+        </ul>
+        <p class="note"><span class="mi mi-inline" aria-hidden="true">archive</span> Архив — свайп влево по корневому пункту. Подсказка внизу списка зависит от режима.</p>
       </section>
 
       <section>
         <h2>Сброс всех галочек (метла)</h2>
         <ul>
-          <li>Иконка метлы слева от шестерёнки, если есть отмеченные пункты и фильтр выключен.</li>
-          <li>Сбрасывает все активные пункты всех уровней; подтверждение: «Будут сброшены все галочки».</li>
+          <li><span class="mi mi-inline" aria-hidden="true">cleaning_services</span> слева от <span class="mi mi-inline" aria-hidden="true">settings</span> шестерёнки, если есть отмеченные пункты и <span class="mi mi-inline" aria-hidden="true">filter_alt</span> фильтр выключен.</li>
+          <li>Сбрасывает все активные пункты в «пусто»; нужно подтверждение.</li>
+          <li>При включённом фильтре метла скрыта.</li>
         </ul>
       </section>
 
       <section>
         <h2>Архив пунктов</h2>
         <ul>
-          <li>В архив отправляется только корневой пункт; подпункты архивируются вместе с ним.</li>
-          <li>Свайп влево по подпункту для архива недоступен.</li>
-          <li>В архиве: свайп влево — восстановить, вправо — удалить.</li>
-          <li>Тап по строке «Архив» — свернуть/развернуть (в списке и на экране «Мои списки»).</li>
+          <li>В архив — только корневой пункт; подпункты уходят вместе с ним.</li>
+          <li><span class="mi mi-inline" aria-hidden="true">archive</span> Свайп влево по подпункту недоступен.</li>
+          <li>В архиве: влево — <span class="mi mi-inline" aria-hidden="true">restore</span> восстановить; вправо — <span class="mi mi-inline" aria-hidden="true">delete</span> удалить.</li>
+          <li>Недавно архивированные — выше в списке.</li>
+          <li>Строка «Архив» — <span class="mi mi-inline" aria-hidden="true">keyboard_arrow_down</span> / <span class="mi mi-inline" aria-hidden="true">keyboard_arrow_up</span> свернуть/развернуть.</li>
         </ul>
       </section>
 
       <section>
         <h2>Подпункты</h2>
         <ul>
-          <li>«Подпункт» в редактировании; сворачивание группы стрелкой.</li>
-          <li>Глубина — в меню списка или в общих настройках.</li>
+          <li><span class="mi mi-inline" aria-hidden="true">subdirectory_arrow_right</span> «Подпункт» при редактировании; <span class="mi mi-inline" aria-hidden="true">keyboard_arrow_up</span> / <span class="mi mi-inline" aria-hidden="true">keyboard_arrow_down</span> сворачивание группы.</li>
+          <li><span class="mi mi-inline" aria-hidden="true">account_tree</span> Глубина — в Действиях или в «Помощь».</li>
+          <li>Меню <span class="mi mi-inline" aria-hidden="true">more_vert</span>: <span class="mi mi-inline" aria-hidden="true">arrow_upward</span> / <span class="mi mi-inline" aria-hidden="true">arrow_downward</span>, <span class="mi mi-inline" aria-hidden="true">south_east</span> подпунктом вышестоящего, <span class="mi mi-inline" aria-hidden="true">north_west</span> поднять уровень.</li>
         </ul>
       </section>
 
       <section>
         <h2>Метки и теги</h2>
         <h3>Цветовые метки (1…N)</h3>
-        <p>Действия → «Корзины»; назначение в редактировании пункта.</p>
+        <p>Действия → <span class="mi mi-inline" aria-hidden="true">palette</span> «Корзины»; назначение в редактировании пункта.</p>
         <h3>#Теги</h3>
-        <p>В тексте или Действия → «Теги». Переименование меняет имя и цвет в словаре и в пунктах.</p>
-      </section>
-
-      <section>
-        <h2>Вставка списка из текста</h2>
+        <p>В тексте (<code>#тег</code>) или Действия → <span class="mi mi-inline" aria-hidden="true">sell</span> «Теги»:</p>
         <ul>
-          <li>«Новый список» → «Развернуть для вставки списка».</li>
-          <li>Первая строка — название, далее пункты; отступы — подпункты.</li>
-          <li>Номера: «1. Текст», «9.1 Текст» (точка после подномера необязательна).</li>
-          <li>Пропуски в нумерации выравниваются по порядку строк.</li>
-          <li>«Поделиться» текстом из другого приложения открывает диалог создания списка.</li>
+          <li>Строка «Теги» с <span class="mi mi-inline" aria-hidden="true">add</span>; в полном списке — <span class="mi mi-inline" aria-hidden="true">edit</span> и <span class="mi mi-inline" aria-hidden="true">close</span>.</li>
+          <li>Редактирование в той же панели меню; <span class="mi mi-inline" aria-hidden="true">arrow_back</span> возврат к списку тегов.</li>
+          <li>Переименование и объединение тегов обновляет все пункты.</li>
         </ul>
       </section>
 
       <section>
         <h2>Шаблоны</h2>
+        <p>«Помощь» → <span class="mi mi-inline" aria-hidden="true">description</span> «Шаблоны». Без чекбоксов, <span class="mi mi-inline" aria-hidden="true">filter_alt</span>, <span class="mi mi-inline" aria-hidden="true">sort</span> и <span class="mi mi-inline" aria-hidden="true">mic</span>.</p>
         <ul>
-          <li>Действия → «Сохранить как шаблон» / «Добавить из шаблона».</li>
-          <li>Шаблоны в меню «Шаблоны»; в шаблоне нет чекбоксов и архива пунктов.</li>
+          <li>Открыть шаблон — редактировать пункты как в списке.</li>
+          <li><span class="mi mi-inline" aria-hidden="true">note_add</span> «Создать список» — новый список <strong>вверху</strong> «Мои списки».</li>
+          <li>Вправо — <span class="mi mi-inline" aria-hidden="true">delete</span>; влево — <span class="mi mi-inline" aria-hidden="true">archive</span> в архив шаблонов.</li>
+          <li>Действия → <span class="mi mi-inline" aria-hidden="true">bookmark_add</span> «Сохранить как шаблон».</li>
+          <li>Действия → <span class="mi mi-inline" aria-hidden="true">note_add</span> «Добавить из шаблона» — <strong>блоком</strong> или <strong>только пункты</strong>.</li>
+          <li>Дубликаты при добавлении не создаются.</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>Слияние списков</h2>
+        <p>Действия → <span class="mi mi-inline" aria-hidden="true">merge_type</span> «Слить из другого списка». Архивные источники не предлагаются.</p>
+        <h3>Способ вставки</h3>
+        <ul>
+          <li><strong>Блоком</strong> — под заголовком с названием источника;</li>
+          <li><strong>Только пункты</strong> — корневые строки.</li>
+        </ul>
+        <h3>Параметры</h3>
+        <ul>
+          <li><span class="mi mi-inline" aria-hidden="true">delete</span> <strong>Удалить исходный</strong> список.</li>
+          <li><span class="mi mi-inline" aria-hidden="true">palette</span> <strong>Сохранить метки</strong>.</li>
+          <li><span class="mi mi-inline" aria-hidden="true">sell</span> <strong>Сохранить теги</strong>.</li>
+          <li><span class="mi mi-inline" aria-hidden="true">checklist</span> <strong>Сохранить статусы</strong>.</li>
+        </ul>
+        <p>После слияния — статистика добавленных и совпавших пунктов.</p>
+      </section>
+
+      <section>
+        <h2>Голосовой ввод</h2>
+        <ul>
+          <li><span class="mi mi-inline" aria-hidden="true">mic</span> на экране списка — диктовка; «Готово» добавляет пакетом.</li>
+          <li>На «Мои списки» <span class="mi mi-inline" aria-hidden="true">mic</span> → «Новый список» с текстом.</li>
+          <li>В диалоге вставки <span class="mi mi-inline" aria-hidden="true">mic</span> дописывает в поле.</li>
+          <li>На «Шаблоны» микрофона нет.</li>
         </ul>
       </section>
 
       <section>
         <h2>Обмен списком</h2>
         <ol class="share-list">
-          <li>Самолётик в шапке — обычный нумерованный текст (без архивных пунктов).</li>
-          <li>Действия → «Поделиться в MemoList» — внутренний формат для импорта.</li>
-          <li>Действия → «Выгрузить файл <code>.memolist</code>».</li>
+          <li><span class="mi mi-inline" aria-hidden="true">send</span> в шапке — нумерованный текст (без архива).</li>
+          <li>Действия → <span class="mi mi-inline" aria-hidden="true">share</span> «Поделиться в MemoList» — формат импорта.</li>
+          <li>Действия → <span class="mi mi-inline" aria-hidden="true">description</span> «Выгрузить <code>.memolist</code>».</li>
         </ol>
+        <p class="note">Повторный импорт объединяет по идентификаторам.</p>
       </section>
 
       <section>
-        <h2>Меню приложения</h2>
-        <p>Тема, плотность, глубина подпунктов, шаблоны, инструкция, облачная копия.</p>
+        <h2>Альбомная ориентация</h2>
+        <ul>
+          <li>Слева — вертикальное название (тап — переименовать); справа — панель действий.</li>
+          <li>Панель: <span class="mi mi-inline" aria-hidden="true">settings</span> <span class="mi mi-inline" aria-hidden="true">send</span> <span class="mi mi-inline" aria-hidden="true">keyboard_arrow_left</span>/<span class="mi mi-inline" aria-hidden="true">keyboard_arrow_right</span> списки <span class="mi mi-inline" aria-hidden="true">filter_alt</span> <span class="mi mi-inline" aria-hidden="true">sort</span> <span class="mi mi-inline" aria-hidden="true">cleaning_services</span> <span class="mi mi-inline" aria-hidden="true">mic</span>.</li>
+          <li>«Мои списки» и фильтр — боковая панель; скрыть стрелкой.</li>
+          <li>Диалоги: <span class="mi mi-inline" aria-hidden="true">close</span> «Закрыть», <span class="mi mi-inline" aria-hidden="true">arrow_back</span> на подпанелях, тап вне окна.</li>
+          <li><span class="mi mi-inline" aria-hidden="true">fullscreen</span> «Полный экран в альбомной ориентации» в «Помощь».</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>Меню «Помощь»</h2>
+        <p><span class="mi mi-inline" aria-hidden="true">more_vert</span> или <span class="mi mi-inline" aria-hidden="true">settings</span> на главных экранах.</p>
+        <ul>
+          <li><span class="mi mi-inline" aria-hidden="true">dark_mode</span> <strong>Тёмная тема</strong>.</li>
+          <li><span class="mi mi-inline" aria-hidden="true">density_medium</span> <strong>Плотность</strong> (0…2).</li>
+          <li><span class="mi mi-inline" aria-hidden="true">account_tree</span> <strong>Глубина подпунктов</strong> — <span class="mi mi-inline" aria-hidden="true">remove</span> / <span class="mi mi-inline" aria-hidden="true">add</span>.</li>
+          <li><span class="mi mi-inline" aria-hidden="true">tips_and_updates</span> <strong>Подсказки при вводе</strong>.</li>
+          <li><span class="mi mi-inline" aria-hidden="true">vertical_align_top</span> <strong>Новые пункты в начало</strong>.</li>
+          <li><span class="mi mi-inline" aria-hidden="true">fullscreen</span> <strong>Полный экран в альбоме</strong>.</li>
+          <li><span class="mi mi-inline" aria-hidden="true">description</span> <strong>Шаблоны</strong>, <span class="mi mi-inline" aria-hidden="true">menu_book</span> <strong>Инструкция</strong>, <span class="mi mi-inline" aria-hidden="true">cloud_upload</span> <strong>Облачная копия</strong>, <span class="mi mi-inline" aria-hidden="true">system_update</span> <strong>Обновления</strong>, <span class="mi mi-inline" aria-hidden="true">info</span> <strong>О программе</strong>, <span class="mi mi-inline" aria-hidden="true">share</span> <strong>Рассказать другу</strong>.</li>
+        </ul>
+        <p class="note">На экране списка — блок «Действия» (см. ниже).</p>
+      </section>
+
+      <section>
+        <h2>Действия со списком</h2>
+        <p>На экране списка: панель над пунктами и меню «Помощь» (<span class="mi" aria-hidden="true">settings</span> в панели или <span class="mi" aria-hidden="true">more_vert</span> в шапке) → раздел «Действия».</p>
+
+        <h3>Панель над списком</h3>
+        <div class="toolbar-strip" aria-label="Иконки панели списка">
+          <span class="toolbar-item"><span class="mi" aria-hidden="true">filter_alt</span> фильтр</span>
+          <span class="toolbar-item"><span class="mi" aria-hidden="true">sort</span> сортировка</span>
+          <span class="toolbar-item"><img class="svg-icon" src="icons/ic_sort_asc.svg" alt="" width="24" height="24"> по возрастанию</span>
+          <span class="toolbar-item"><img class="svg-icon" src="icons/ic_sort_desc.svg" alt="" width="24" height="24"> по убыванию</span>
+          <span class="toolbar-item"><span class="mi" aria-hidden="true">cleaning_services</span> метла</span>
+          <span class="toolbar-item"><span class="mi" aria-hidden="true">settings</span> настройки</span>
+        </div>
+        <ul class="icon-list">
+          <li>
+            <span class="icon-cell"><span class="mi" aria-hidden="true">filter_alt</span></span>
+            <span><strong>Фильтр</strong> — воронка слева; открывает панель отбора по #тегам, цветовым меткам и статусам.</span>
+          </li>
+          <li>
+            <span class="icon-cell"><span class="mi" aria-hidden="true">sort</span></span>
+            <span><strong>Сортировка</strong> — без активной сортировки. После выбора критерия иконка меняется на стрелку вверх или вниз (как в приложении).</span>
+          </li>
+          <li>
+            <span class="icon-cell"><span class="mi" aria-hidden="true">cleaning_services</span></span>
+            <span><strong>Метла</strong> — сброс всех галочек; видна только если есть отмеченные пункты и фильтр выключен.</span>
+          </li>
+          <li>
+            <span class="icon-cell"><span class="mi" aria-hidden="true">settings</span></span>
+            <span><strong>Настройки</strong> — открывает меню «Помощь» с блоком «Действия» для этого списка.</span>
+          </li>
+        </ul>
+
+        <h3>Шапка списка</h3>
+        <ul class="icon-list">
+          <li>
+            <span class="icon-cell"><span class="mi" aria-hidden="true">send</span></span>
+            <span><strong>Отправить</strong> (самолётик) — поделиться списком обычным текстом без архивных пунктов.</span>
+          </li>
+          <li>
+            <span class="icon-cell"><span class="mi" aria-hidden="true">mic</span></span>
+            <span><strong>Микрофон</strong> — голосовой ввод пунктов (на экране шаблонов недоступен).</span>
+          </li>
+        </ul>
+
+        <h3>Раздел «Действия» в меню</h3>
+        <ul class="icon-list">
+          <li>
+            <span class="icon-cell"><span class="mi" aria-hidden="true">send</span></span>
+            <span><strong>Отправить</strong> — те же варианты обмена, что и в шапке, плюс форматы MemoList.</span>
+          </li>
+          <li>
+            <span class="icon-cell"><span class="mi" aria-hidden="true">account_tree</span></span>
+            <span><strong>Глубина подпунктов</strong> — кнопки <span class="mi" aria-hidden="true">remove</span> / <span class="mi" aria-hidden="true">add</span>; для этого списка или наследование общей настройки.</span>
+          </li>
+          <li>
+            <span class="icon-cell"><span class="mi" aria-hidden="true">checklist</span></span>
+            <span><strong>Статусы</strong> — режим 0 / 2 / 3; переключение <span class="mi" aria-hidden="true">remove</span> / <span class="mi" aria-hidden="true">add</span>.</span>
+          </li>
+          <li>
+            <span class="icon-cell"><span class="mi" aria-hidden="true">palette</span></span>
+            <span><strong>Корзины</strong> — число цветовых меток; <span class="mi" aria-hidden="true">remove</span> / <span class="mi" aria-hidden="true">add</span>.</span>
+          </li>
+          <li>
+            <span class="icon-cell"><span class="mi" aria-hidden="true">swipe_right</span></span>
+            <span><strong>Двойной свайп для удаления</strong> — переключатель режима удаления свайпом вправо.</span>
+          </li>
+          <li>
+            <span class="icon-cell"><span class="mi" aria-hidden="true">sell</span></span>
+            <span><strong>Теги</strong> — словарь #тегов; <span class="mi" aria-hidden="true">add</span> для добавления; в списке всех тегов — <span class="mi" aria-hidden="true">edit</span> и <span class="mi" aria-hidden="true">close</span>.</span>
+          </li>
+          <li>
+            <span class="icon-cell"><span class="mi" aria-hidden="true">note_add</span></span>
+            <span><strong>Добавить из шаблона</strong> — вставка блоком или только пунктами.</span>
+          </li>
+          <li>
+            <span class="icon-cell"><span class="mi" aria-hidden="true">bookmark_add</span></span>
+            <span><strong>Сохранить как шаблон</strong> — заготовка из текущего списка.</span>
+          </li>
+          <li>
+            <span class="icon-cell"><span class="mi" aria-hidden="true">merge_type</span></span>
+            <span><strong>Слить из другого списка</strong> — перенос пунктов с параметрами слияния.</span>
+          </li>
+        </ul>
+
+        <h3>Свайпы по пункту</h3>
+        <ul class="icon-list">
+          <li>
+            <span class="icon-cell"><span class="mi" aria-hidden="true">archive</span></span>
+            <span>Свайп <strong>влево</strong> (корневой пункт) — в архив; при перетаскивании видна иконка архива.</span>
+          </li>
+          <li>
+            <span class="icon-cell"><span class="mi" aria-hidden="true">delete</span></span>
+            <span>Свайп <strong>вправо</strong> — удаление; при перетаскивании видна корзина.</span>
+          </li>
+          <li>
+            <span class="icon-cell"><span class="mi" aria-hidden="true">restore</span></span>
+            <span>В архиве свайп влево — восстановить; у зачёркнутого пункта свайп влево — отменить удаление.</span>
+          </li>
+        </ul>
+        <p class="note">Иконки на этой странице соответствуют набору Material Icons в приложении; сортировка по возрастанию/убыванию — те же рисунки, что в <code>ic_sort_asc</code> / <code>ic_sort_desc</code>.</p>
       </section>
 
       <section>
         <h2>Облачная копия</h2>
-        <p>Файл <code>Documents/MemoList/memolist-backup.json</code> — сохранение, отправка и восстановление данных.</p>
+        <p><span class="mi mi-inline" aria-hidden="true">cloud_upload</span> Файл <code>Documents/MemoList/memolist-backup.json</code> на устройстве.</p>
+        <ul>
+          <li><span class="mi mi-inline" aria-hidden="true">save</span> «Сохранить копию сейчас».</li>
+          <li><span class="mi mi-inline" aria-hidden="true">share</span> «Поделиться файлом бэкапа».</li>
+          <li><span class="mi mi-inline" aria-hidden="true">cloud_download</span> «Восстановить из облака» — локальный файл и/или Google Диск.</li>
+          <li>Автосохранение при сворачивании — в настройках бэкапа.</li>
+        </ul>
+        <p class="note">При первом запуске, если найден бэкап, предлагается восстановление.</p>
       </section>
     </div>
 
@@ -247,114 +528,332 @@
       <section class="cheatsheet">
         <h2>Quick cheatsheet</h2>
         <ol>
-          <li>List icon (top left) — My lists.</li>
-          <li>“+” at bottom — new item.</li>
-          <li>Checkbox: [ ] → [~] → [✓] (when statuses are enabled).</li>
-          <li>Swipe right — delete, left — archive (root items only).</li>
-          <li>List toolbar: filter, sort, broom (reset checkmarks), settings.</li>
+          <li><span class="mi mi-inline" aria-hidden="true">arrow_back</span> on a list screen — My lists.</li>
+          <li><span class="mi mi-inline" aria-hidden="true">add</span> at bottom — new item; suggestions may appear while typing.</li>
+          <li>Checkbox: <span class="mi mi-inline" aria-hidden="true">check_box_outline_blank</span> → in progress → <span class="mi mi-inline" aria-hidden="true">check_box</span> (when statuses enabled).</li>
+          <li>Swipe left — <span class="mi mi-inline" aria-hidden="true">archive</span> archive (roots only). Swipe right — <span class="mi mi-inline" aria-hidden="true">delete</span> delete: single ~5 s wait; double — two right swipes.</li>
+          <li>Toolbar: <span class="mi mi-inline" aria-hidden="true">filter_alt</span> filter, <span class="mi mi-inline" aria-hidden="true">sort</span> sort, <span class="mi mi-inline" aria-hidden="true">cleaning_services</span> broom, <span class="mi mi-inline" aria-hidden="true">settings</span> settings.</li>
+          <li><span class="mi mi-inline" aria-hidden="true">more_vert</span> or <span class="mi mi-inline" aria-hidden="true">settings</span> — Help; on a list — Actions.</li>
         </ol>
       </section>
 
       <section>
         <h2>My lists</h2>
         <ul>
-          <li>List cards; progress ring is hidden when “Statuses = 0” (data is kept).</li>
-          <li>Swipe left on a list — archive; right — delayed delete.</li>
-          <li>“Archive” section at the bottom — tap the row to expand/collapse.</li>
-          <li>Sample lists are added on first install.</li>
+          <li>List cards; progress ring hidden when “Statuses = 0”.</li>
+          <li>Swipe left — <span class="mi mi-inline" aria-hidden="true">archive</span> archive; right — <span class="mi mi-inline" aria-hidden="true">delete</span> delete (~5 s), left undoes.</li>
+          <li>“Archive” row — <span class="mi mi-inline" aria-hidden="true">keyboard_arrow_down</span> / <span class="mi mi-inline" aria-hidden="true">keyboard_arrow_up</span> expand/collapse.</li>
+          <li>Sample lists on first install.</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>New list</h2>
+        <p>“New” on My lists or in the menu. Title only, or expand optional blocks.</p>
+        <h3>Paste from text</h3>
+        <ul>
+          <li><img class="svg-icon mi-inline img-icon" src="icons/ic_expand_input.svg" alt="" width="20" height="20"> “Expand to paste list” — title, then items; indent for sub-items.</li>
+          <li>Numbers “1. Text”, “9.1 Text”; gaps normalized.</li>
+          <li><span class="mi mi-inline" aria-hidden="true">share</span> Share text from another app opens this dialog.</li>
+        </ul>
+        <h3>Parameters</h3>
+        <p><span class="mi mi-inline" aria-hidden="true">expand_more</span> “Parameters” for the <em>new</em> list:</p>
+        <ul>
+          <li><span class="mi mi-inline" aria-hidden="true">account_tree</span> <strong>Sub-item depth</strong>; <span class="mi mi-inline" aria-hidden="true">remove</span> / <span class="mi mi-inline" aria-hidden="true">add</span>.</li>
+          <li><span class="mi mi-inline" aria-hidden="true">checklist</span> <strong>Statuses</strong> — 0 / 2 / 3.</li>
+          <li><span class="mi mi-inline" aria-hidden="true">palette</span> <strong>Bins</strong> — color marks count.</li>
+          <li><span class="mi mi-inline" aria-hidden="true">swipe_right</span> <strong>Double swipe to delete</strong> — see below.</li>
+          <li><strong>For all new</strong> — defaults for future lists only.</li>
         </ul>
       </section>
 
       <section>
         <h2>Items and statuses</h2>
-        <p>Menu → Actions → “Statuses”:</p>
+        <p>Menu → Actions → <span class="mi mi-inline" aria-hidden="true">checklist</span> “Statuses”:</p>
         <ul>
-          <li><strong>0</strong> — no checkboxes and no progress indicator.</li>
-          <li><strong>2</strong> — empty / done.</li>
+          <li><strong>0</strong> — no <span class="mi mi-inline" aria-hidden="true">check_box</span> or progress ring.</li>
+          <li><strong>2</strong> — <span class="mi mi-inline" aria-hidden="true">check_box_outline_blank</span> / <span class="mi mi-inline" aria-hidden="true">check_box</span>.</li>
           <li><strong>3</strong> — empty / in progress / done (default).</li>
         </ul>
-        <p class="note">Checkbox cycles states. A parent with active children has a dimmed checkbox — status is derived from children.</p>
+        <p class="note">Checkbox cycles states. Dimmed parent checkbox when children are active. Done children may collapse parent (<span class="mi mi-inline" aria-hidden="true">keyboard_arrow_up</span>).</p>
       </section>
 
       <section>
-        <h2>Filter and new list</h2>
+        <h2>Filter</h2>
         <ul>
-          <li>Funnel in the list toolbar — filter by #tags, color marks, and statuses.</li>
-          <li>With an active filter you can create a new list from visible items only.</li>
-          <li>Sort is cleared when you move items.</li>
+          <li><span class="mi mi-inline" aria-hidden="true">filter_alt</span> Funnel — <span class="mi mi-inline" aria-hidden="true">sell</span> #tags, <span class="mi mi-inline" aria-hidden="true">palette</span> marks, statuses.</li>
+          <li>Multiple conditions can be combined.</li>
+          <li>Active filter — <span class="mi mi-inline" aria-hidden="true">note_add</span> create list from visible items.</li>
+          <li>Adding with filter on merges tags onto existing title — no duplicate row.</li>
+          <li><span class="mi mi-inline" aria-hidden="true">sort</span> Sort clears when you move items.</li>
+          <li>Filter kept on rotation.</li>
         </ul>
+      </section>
+
+      <section>
+        <h2>Input suggestions</h2>
+        <p>Help → <span class="mi mi-inline" aria-hidden="true">tips_and_updates</span> “Use input suggestions”.</p>
+        <ul>
+          <li>First enable fills dictionary automatically.</li>
+          <li><span class="mi mi-inline" aria-hidden="true">add</span> While adding, suggestions appear; tap to insert.</li>
+          <li>Shared dictionary; plain titles only.</li>
+          <li>Frequency grows on <span class="mi mi-inline" aria-hidden="true">check_box</span> done.</li>
+          <li>With <span class="mi mi-inline" aria-hidden="true">filter_alt</span> filter — list + dictionary matches.</li>
+          <li>Duplicate title warning possible.</li>
+          <li>Not shown in <span class="mi mi-inline" aria-hidden="true">edit</span> edit dialog.</li>
+          <li>Disable clears dictionary.</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>Swipe to delete</h2>
+        <h3>Single mode (default)</h3>
+        <ul>
+          <li>Swipe right — <span class="mi mi-inline" aria-hidden="true">delete</span> red strikethrough; ~5 s then removed.</li>
+          <li>Swipe left — <span class="mi mi-inline" aria-hidden="true">restore</span> undo before timeout.</li>
+        </ul>
+        <h3>Double swipe</h3>
+        <p>Actions → <span class="mi mi-inline" aria-hidden="true">swipe_right</span> “Double swipe to delete”, or in Parameters.</p>
+        <ul>
+          <li>First right swipe — gray mark (<span class="mi mi-inline" aria-hidden="true">delete</span>).</li>
+          <li>Second right swipe — delete immediately.</li>
+          <li>While marked — no <span class="mi mi-inline" aria-hidden="true">edit</span> or <span class="mi mi-inline" aria-hidden="true">check_box</span>.</li>
+          <li>Swipe left clears mark.</li>
+        </ul>
+        <p class="note"><span class="mi mi-inline" aria-hidden="true">archive</span> Archive — swipe left on root items. Bottom hint reflects mode.</p>
       </section>
 
       <section>
         <h2>Reset all checkmarks (broom)</h2>
         <ul>
-          <li>Broom icon left of the gear when any item is marked and the filter is off.</li>
-          <li>Resets all active items at every level; confirm: “All checkmarks will be cleared.”</li>
+          <li><span class="mi mi-inline" aria-hidden="true">cleaning_services</span> left of <span class="mi mi-inline" aria-hidden="true">settings</span> when items marked and <span class="mi mi-inline" aria-hidden="true">filter_alt</span> filter off.</li>
+          <li>Resets all active items to empty; confirmation required.</li>
+          <li>Hidden while filter active.</li>
         </ul>
       </section>
 
       <section>
         <h2>Item archive</h2>
         <ul>
-          <li>Only root items can be archived; sub-items go with the parent.</li>
-          <li>Swipe-to-archive is disabled for sub-items.</li>
-          <li>In archive: swipe left — restore, right — delete.</li>
-          <li>Tap the “Archive” row to expand/collapse (in a list and on My lists).</li>
+          <li>Root items only; sub-items go with parent.</li>
+          <li><span class="mi mi-inline" aria-hidden="true">archive</span> No archive swipe on sub-items.</li>
+          <li>In archive: left — <span class="mi mi-inline" aria-hidden="true">restore</span>; right — <span class="mi mi-inline" aria-hidden="true">delete</span>.</li>
+          <li>Recently archived first.</li>
+          <li>“Archive” row — <span class="mi mi-inline" aria-hidden="true">keyboard_arrow_down</span> / <span class="mi mi-inline" aria-hidden="true">keyboard_arrow_up</span>.</li>
         </ul>
       </section>
 
       <section>
         <h2>Sub-items</h2>
         <ul>
-          <li>“Sub-item” in edit dialog; collapse groups with the arrow.</li>
-          <li>Depth — per list in Actions or global in Help menu.</li>
+          <li><span class="mi mi-inline" aria-hidden="true">subdirectory_arrow_right</span> “Sub-item” in edit; <span class="mi mi-inline" aria-hidden="true">keyboard_arrow_up</span> / <span class="mi mi-inline" aria-hidden="true">keyboard_arrow_down</span> collapse.</li>
+          <li><span class="mi mi-inline" aria-hidden="true">account_tree</span> Depth — Actions or Help.</li>
+          <li><span class="mi mi-inline" aria-hidden="true">more_vert</span> menu: <span class="mi mi-inline" aria-hidden="true">arrow_upward</span> / <span class="mi mi-inline" aria-hidden="true">arrow_downward</span>, <span class="mi mi-inline" aria-hidden="true">south_east</span>, <span class="mi mi-inline" aria-hidden="true">north_west</span>.</li>
         </ul>
       </section>
 
       <section>
         <h2>Marks and tags</h2>
         <h3>Color marks (1…N)</h3>
-        <p>Actions → “Bins”; assign in item edit.</p>
+        <p>Actions → <span class="mi mi-inline" aria-hidden="true">palette</span> “Bins”; assign in item edit.</p>
         <h3>#Tags</h3>
-        <p>In text or Actions → “Tags”. Rename updates name and color in the vocabulary and in items.</p>
-      </section>
-
-      <section>
-        <h2>Paste list from text</h2>
+        <p>In text (<code>#tag</code>) or Actions → <span class="mi mi-inline" aria-hidden="true">sell</span> “Tags”:</p>
         <ul>
-          <li>“New list” → “Expand to paste list”.</li>
-          <li>First line — title, then items; indent — sub-items.</li>
-          <li>Numbers: “1. Text”, “9.1 Text” (trailing dot after sub-number is optional).</li>
-          <li>Gaps in numbering are normalized to document order.</li>
-          <li>Share text from another app opens the new-list dialog.</li>
+          <li>“Tags” with <span class="mi mi-inline" aria-hidden="true">add</span>; full list — <span class="mi mi-inline" aria-hidden="true">edit</span> / <span class="mi mi-inline" aria-hidden="true">close</span>.</li>
+          <li>Same menu panel; <span class="mi mi-inline" aria-hidden="true">arrow_back</span> back to tag list.</li>
+          <li>Rename/merge updates all items.</li>
         </ul>
       </section>
 
       <section>
         <h2>Templates</h2>
+        <p>Help → <span class="mi mi-inline" aria-hidden="true">description</span> Templates. No <span class="mi mi-inline" aria-hidden="true">check_box</span>, <span class="mi mi-inline" aria-hidden="true">filter_alt</span>, <span class="mi mi-inline" aria-hidden="true">sort</span>, or <span class="mi mi-inline" aria-hidden="true">mic</span>.</p>
         <ul>
-          <li>Actions → “Save as template” / “Add from template”.</li>
-          <li>Templates in Help → Templates; no checkboxes or item archive in templates.</li>
+          <li>Open template — edit like a list.</li>
+          <li><span class="mi mi-inline" aria-hidden="true">note_add</span> “Create list” — at <strong>top</strong> of My lists.</li>
+          <li>Right — <span class="mi mi-inline" aria-hidden="true">delete</span>; left — <span class="mi mi-inline" aria-hidden="true">archive</span>.</li>
+          <li>Actions → <span class="mi mi-inline" aria-hidden="true">bookmark_add</span> “Save as template”.</li>
+          <li>Actions → <span class="mi mi-inline" aria-hidden="true">note_add</span> “Add from template” — block or items only.</li>
+          <li>Duplicates skipped.</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>Merge lists</h2>
+        <p>Actions → <span class="mi mi-inline" aria-hidden="true">merge_type</span> “Merge from another list”. No archived sources.</p>
+        <h3>Insert mode</h3>
+        <ul>
+          <li><strong>As block</strong> — under source title parent;</li>
+          <li><strong>Items only</strong> — root rows.</li>
+        </ul>
+        <h3>Options</h3>
+        <ul>
+          <li><span class="mi mi-inline" aria-hidden="true">delete</span> <strong>Delete source list</strong>.</li>
+          <li><span class="mi mi-inline" aria-hidden="true">palette</span> <strong>Keep color marks</strong>.</li>
+          <li><span class="mi mi-inline" aria-hidden="true">sell</span> <strong>Keep tags</strong>.</li>
+          <li><span class="mi mi-inline" aria-hidden="true">checklist</span> <strong>Keep statuses</strong>.</li>
+        </ul>
+        <p>Stats shown after merge.</p>
+      </section>
+
+      <section>
+        <h2>Voice input</h2>
+        <ul>
+          <li><span class="mi mi-inline" aria-hidden="true">mic</span> on list screen — dictate; “Done” adds batch.</li>
+          <li>On My lists, <span class="mi mi-inline" aria-hidden="true">mic</span> → New list with text.</li>
+          <li>In paste dialog, <span class="mi mi-inline" aria-hidden="true">mic</span> appends to field.</li>
+          <li>No mic on Templates.</li>
         </ul>
       </section>
 
       <section>
         <h2>Sharing</h2>
         <ol class="share-list">
-          <li>Paper plane in the top bar — plain numbered text (no archived items).</li>
-          <li>Actions → “Share in MemoList” — internal format for import.</li>
-          <li>Actions → “Export <code>.memolist</code> file”.</li>
+          <li><span class="mi mi-inline" aria-hidden="true">send</span> in top bar — plain text.</li>
+          <li>Actions → <span class="mi mi-inline" aria-hidden="true">share</span> “Share in MemoList”.</li>
+          <li>Actions → <span class="mi mi-inline" aria-hidden="true">description</span> “Export <code>.memolist</code>”.</li>
         </ol>
+        <p class="note">Re-import merges by IDs.</p>
+      </section>
+
+      <section>
+        <h2>Landscape orientation</h2>
+        <ul>
+          <li>Vertical title left (tap rename); action rail right.</li>
+          <li>Rail: <span class="mi mi-inline" aria-hidden="true">settings</span> <span class="mi mi-inline" aria-hidden="true">send</span> <span class="mi mi-inline" aria-hidden="true">keyboard_arrow_left</span>/<span class="mi mi-inline" aria-hidden="true">keyboard_arrow_right</span> lists <span class="mi mi-inline" aria-hidden="true">filter_alt</span> <span class="mi mi-inline" aria-hidden="true">sort</span> <span class="mi mi-inline" aria-hidden="true">cleaning_services</span> <span class="mi mi-inline" aria-hidden="true">mic</span>.</li>
+          <li>My lists and filter — side panel; chevron to hide.</li>
+          <li>Dialogs: <span class="mi mi-inline" aria-hidden="true">close</span>, <span class="mi mi-inline" aria-hidden="true">arrow_back</span>, tap outside.</li>
+          <li><span class="mi mi-inline" aria-hidden="true">fullscreen</span> “Fullscreen in landscape” in Help.</li>
+        </ul>
       </section>
 
       <section>
         <h2>Help menu</h2>
-        <p>Theme, density, sub-item depth, templates, instructions, cloud backup.</p>
+        <p><span class="mi mi-inline" aria-hidden="true">more_vert</span> or <span class="mi mi-inline" aria-hidden="true">settings</span> on main screens.</p>
+        <ul>
+          <li><span class="mi mi-inline" aria-hidden="true">dark_mode</span> <strong>Dark theme</strong>.</li>
+          <li><span class="mi mi-inline" aria-hidden="true">density_medium</span> <strong>Density</strong> (0…2).</li>
+          <li><span class="mi mi-inline" aria-hidden="true">account_tree</span> <strong>Sub-item depth</strong> — <span class="mi mi-inline" aria-hidden="true">remove</span> / <span class="mi mi-inline" aria-hidden="true">add</span>.</li>
+          <li><span class="mi mi-inline" aria-hidden="true">tips_and_updates</span> <strong>Input suggestions</strong>.</li>
+          <li><span class="mi mi-inline" aria-hidden="true">vertical_align_top</span> <strong>New items at start</strong>.</li>
+          <li><span class="mi mi-inline" aria-hidden="true">fullscreen</span> <strong>Fullscreen in landscape</strong>.</li>
+          <li><span class="mi mi-inline" aria-hidden="true">description</span> <strong>Templates</strong>, <span class="mi mi-inline" aria-hidden="true">menu_book</span> <strong>Instructions</strong>, <span class="mi mi-inline" aria-hidden="true">cloud_upload</span> <strong>Cloud backup</strong>, <span class="mi mi-inline" aria-hidden="true">system_update</span> <strong>Updates</strong>, <span class="mi mi-inline" aria-hidden="true">info</span> <strong>About</strong>, <span class="mi mi-inline" aria-hidden="true">share</span> <strong>Tell a friend</strong>.</li>
+        </ul>
+        <p class="note">On a list screen — Actions block (below).</p>
+      </section>
+
+      <section>
+        <h2>List actions</h2>
+        <p>On a list screen: the toolbar above items and Help menu (<span class="mi" aria-hidden="true">settings</span> in the toolbar or <span class="mi" aria-hidden="true">more_vert</span> in the top bar) → Actions section.</p>
+
+        <h3>List toolbar</h3>
+        <div class="toolbar-strip" aria-label="List toolbar icons">
+          <span class="toolbar-item"><span class="mi" aria-hidden="true">filter_alt</span> filter</span>
+          <span class="toolbar-item"><span class="mi" aria-hidden="true">sort</span> sort</span>
+          <span class="toolbar-item"><img class="svg-icon" src="icons/ic_sort_asc.svg" alt="" width="24" height="24"> ascending</span>
+          <span class="toolbar-item"><img class="svg-icon" src="icons/ic_sort_desc.svg" alt="" width="24" height="24"> descending</span>
+          <span class="toolbar-item"><span class="mi" aria-hidden="true">cleaning_services</span> broom</span>
+          <span class="toolbar-item"><span class="mi" aria-hidden="true">settings</span> settings</span>
+        </div>
+        <ul class="icon-list">
+          <li>
+            <span class="icon-cell"><span class="mi" aria-hidden="true">filter_alt</span></span>
+            <span><strong>Filter</strong> — funnel on the left; opens tag, color mark, and status filters.</span>
+          </li>
+          <li>
+            <span class="icon-cell"><span class="mi" aria-hidden="true">sort</span></span>
+            <span><strong>Sort</strong> — default icon when no sort is active. After choosing a criterion, the app shows the ascending or descending arrow icons.</span>
+          </li>
+          <li>
+            <span class="icon-cell"><span class="mi" aria-hidden="true">cleaning_services</span></span>
+            <span><strong>Broom</strong> — reset all checkmarks; shown only when items are marked and the filter is off.</span>
+          </li>
+          <li>
+            <span class="icon-cell"><span class="mi" aria-hidden="true">settings</span></span>
+            <span><strong>Settings</strong> — opens Help with the Actions block for this list.</span>
+          </li>
+        </ul>
+
+        <h3>Top bar</h3>
+        <ul class="icon-list">
+          <li>
+            <span class="icon-cell"><span class="mi" aria-hidden="true">send</span></span>
+            <span><strong>Send</strong> (paper plane) — share the list as plain text without archived items.</span>
+          </li>
+          <li>
+            <span class="icon-cell"><span class="mi" aria-hidden="true">mic</span></span>
+            <span><strong>Microphone</strong> — voice input for items (not on Templates screen).</span>
+          </li>
+        </ul>
+
+        <h3>Actions section in the menu</h3>
+        <ul class="icon-list">
+          <li>
+            <span class="icon-cell"><span class="mi" aria-hidden="true">send</span></span>
+            <span><strong>Send</strong> — same sharing options as the top bar, plus MemoList formats.</span>
+          </li>
+          <li>
+            <span class="icon-cell"><span class="mi" aria-hidden="true">account_tree</span></span>
+            <span><strong>Sub-item depth</strong> — <span class="mi" aria-hidden="true">remove</span> / <span class="mi" aria-hidden="true">add</span> stepper; per list or inherit global setting.</span>
+          </li>
+          <li>
+            <span class="icon-cell"><span class="mi" aria-hidden="true">checklist</span></span>
+            <span><strong>Statuses</strong> — mode 0 / 2 / 3; <span class="mi" aria-hidden="true">remove</span> / <span class="mi" aria-hidden="true">add</span>.</span>
+          </li>
+          <li>
+            <span class="icon-cell"><span class="mi" aria-hidden="true">palette</span></span>
+            <span><strong>Bins</strong> — number of color marks; <span class="mi" aria-hidden="true">remove</span> / <span class="mi" aria-hidden="true">add</span>.</span>
+          </li>
+          <li>
+            <span class="icon-cell"><span class="mi" aria-hidden="true">swipe_right</span></span>
+            <span><strong>Double swipe to delete</strong> — toggle for swipe-right delete mode.</span>
+          </li>
+          <li>
+            <span class="icon-cell"><span class="mi" aria-hidden="true">sell</span></span>
+            <span><strong>Tags</strong> — #tag vocabulary; <span class="mi" aria-hidden="true">add</span> to add; in the full list — <span class="mi" aria-hidden="true">edit</span> and <span class="mi" aria-hidden="true">close</span>.</span>
+          </li>
+          <li>
+            <span class="icon-cell"><span class="mi" aria-hidden="true">note_add</span></span>
+            <span><strong>Add from template</strong> — insert as block or items only.</span>
+          </li>
+          <li>
+            <span class="icon-cell"><span class="mi" aria-hidden="true">bookmark_add</span></span>
+            <span><strong>Save as template</strong> — preset from the current list.</span>
+          </li>
+          <li>
+            <span class="icon-cell"><span class="mi" aria-hidden="true">merge_type</span></span>
+            <span><strong>Merge from another list</strong> — copy items with merge options.</span>
+          </li>
+        </ul>
+
+        <h3>Item swipes</h3>
+        <ul class="icon-list">
+          <li>
+            <span class="icon-cell"><span class="mi" aria-hidden="true">archive</span></span>
+            <span>Swipe <strong>left</strong> (root item) — archive; archive icon while dragging.</span>
+          </li>
+          <li>
+            <span class="icon-cell"><span class="mi" aria-hidden="true">delete</span></span>
+            <span>Swipe <strong>right</strong> — delete; trash icon while dragging.</span>
+          </li>
+          <li>
+            <span class="icon-cell"><span class="mi" aria-hidden="true">restore</span></span>
+            <span>In archive, swipe left — restore; on a pending-delete item, swipe left — undo.</span>
+          </li>
+        </ul>
+        <p class="note">Icons on this page use the same Material Icons set as the app; ascending/descending sort uses the same artwork as <code>ic_sort_asc</code> / <code>ic_sort_desc</code>.</p>
       </section>
 
       <section>
         <h2>Cloud backup</h2>
-        <p>File <code>Documents/MemoList/memolist-backup.json</code> — save, share, and restore data.</p>
+        <p><span class="mi mi-inline" aria-hidden="true">cloud_upload</span> File <code>Documents/MemoList/memolist-backup.json</code>.</p>
+        <ul>
+          <li><span class="mi mi-inline" aria-hidden="true">save</span> “Save backup now”.</li>
+          <li><span class="mi mi-inline" aria-hidden="true">share</span> “Share backup file”.</li>
+          <li><span class="mi mi-inline" aria-hidden="true">cloud_download</span> “Restore from cloud”.</li>
+          <li>Auto-save on background in backup settings.</li>
+        </ul>
+        <p class="note">First launch may offer restore if backup exists.</p>
       </section>
     </div>
   </div>
@@ -362,7 +861,7 @@
   <script>
     (function () {
       var titles = { ru: 'MemoList — инструкция', en: 'MemoList guide' };
-      var versions = { ru: 'Версия 3.13.2', en: 'Version 3.13.2' };
+      var versions = { ru: 'Версия 3.16.6', en: 'Version 3.16.6' };
 
       function resolveLang() {
         var params = new URLSearchParams(window.location.search);
