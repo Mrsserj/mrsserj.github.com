@@ -1,6 +1,6 @@
 # Веб-инструкция MemoList
 
-Файл [`instructions.html`](instructions.html) — пользовательская инструкция для версии **3.13.2**.
+Файл [`instructions.html`](instructions.html) — пользовательская инструкция для версии **3.16.6**.
 
 ## Публикация
 
